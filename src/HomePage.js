@@ -146,7 +146,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                <h3 className="text-5xl md:text-7xl font-bold leading-tight mb-6 mt-7">
                   <motion.span
                     className="block"
                     style={{ color: heroTextColor }}
@@ -164,7 +164,7 @@ export default function HomePage() {
                   >
                     Real-World Impact
                   </motion.span>
-                </h1>
+                </h3>
               </motion.div>
               <motion.p
                 className="text-xl md:text-2xl leading-relaxed"
@@ -194,9 +194,8 @@ export default function HomePage() {
                     transition={{ duration: 0.3 }}
                   />
                   <span className="absolute inset-0 flex items-center justify-center text-[#FFFEF9] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                    Get Started
-                  </span>
-                </motion.button>
+                    Get Started</span>
+                  </motion.button>
                 <motion.button
                   className="border-2 border-[#306CEC] text-[#306CEC] px-10 py-4 rounded-full font-bold text-lg hover:bg-[#306CEC] hover:text-[#FFFEF9] transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -3 }}
@@ -209,46 +208,15 @@ export default function HomePage() {
                   Learn More
                 </motion.button>
               </motion.div>
-              {/* Stats */}
-              <motion.div
-                className="grid grid-cols-3 gap-6 pt-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-              >
-                {[
-                  { number: "500+", label: "Startups" },
-                  { number: "50+", label: "Programs" },
-                  { number: "10k+", label: "Community" }
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <h3
-                      className="text-3xl md:text-4xl font-bold"
-                      style={{ color: heroTextColor }}
-                    >
-                      {stat.number}
-                    </h3>
-                    <p
-                      className="text-sm opacity-70"
-                      style={{ color: heroTextColor }}
-                    >
-                      {stat.label}
-                    </p>
-                  </motion.div>
-                ))}
-              </motion.div>
             </motion.div>
             {/* Right Side - Logo Carousel */}
             <motion.div
               className="relative"
               initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}                           
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="relative w-full max-w-lg mx-auto aspect-square">
+              <div className="relative w-full max-w-sm mx-auto aspect-square">
                 {/* Animated logo transitions */}
                 <motion.div
                   className="absolute inset-0 flex items-center justify-center"
@@ -333,6 +301,37 @@ export default function HomePage() {
               </div>
             </motion.div>
           </div>
+          {/* Stats */}
+          <motion.div
+            className="flex justify-around w-full pt-24"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+          >
+            {[
+              { number: "500+", label: "Startups" },
+              { number: "50+", label: "Programs" },
+              { number: "10k+", label: "Community" }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.05 }}
+              >
+                <h3
+                  className="text-5xl md:text-6xl font-bold"
+                  style={{ color: heroTextColor }}
+                >
+                  {stat.number}
+                </h3>
+                <p
+                  className="text-lg opacity-70"
+                  style={{ color: heroTextColor }}
+                >
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
           {/* Community Section */}
           <motion.div
             className="mt-24 text-center"
@@ -346,7 +345,7 @@ export default function HomePage() {
             >
               Trusted by Innovators Across Africa
             </motion.h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-10">
               {[1, 2, 3, 4].map((i) => (
                 <motion.div
                   key={i}
