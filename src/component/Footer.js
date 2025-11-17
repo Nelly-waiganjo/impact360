@@ -70,9 +70,9 @@ export default function Footer() {
 
           {/* Column 3: Quick Links */}
           <div className="flex flex-col items-center md:items-start gap-6">
-            <h4 className="text-lg font-semibold text-[#FFFEF9] mb-2">
-              Quick Links
-            </h4>
+             <h4 className="text-lg font-semibold text-[#FFFEF9] mb-2">
+                Quick links
+              </h4>
             <div className="flex flex-col text-sm text-[#FFFEF9]/80 space-y-1">
               <a href="#" className="hover:underline">
                 About
@@ -93,7 +93,7 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-end gap-4">
             <h4 className="text-lg font-semibold text-[#FFFEF9] mb-2">
                 Follow Us
-            </h4>
+              </h4>
             {/* Socials aligned to right on md, centered on mobile */}
             <div className="self-center md:self-end flex gap-4 mt-2">
               <a
