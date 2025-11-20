@@ -1,6 +1,5 @@
 import React from "react";
 import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-
 import { motion } from "framer-motion";
 
 export default function Footer() {
@@ -27,13 +26,17 @@ export default function Footer() {
             className="flex flex-col items-center md:items-start gap-4"
           >
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 flex items-center justify-center bg-white/10 rounded-full shadow-lg border border-[#306CEC]/30">
+              <motion.div 
+                className="w-16 h-16 flex items-center justify-center bg-white/10 rounded-full shadow-lg border border-[#306CEC]/30"
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              >
                 <img
                   src="/logo4.png"
                   alt="Impact360 Logo"
                   className="w-10 h-10 object-contain"
                 />
-              </div>
+              </motion.div>
               <div>
                 <div className="text-2xl font-extrabold text-[#FFFEF9] tracking-wide drop-shadow-md">
                   Impact360
@@ -56,23 +59,30 @@ export default function Footer() {
             transition={{ duration: 0.7 }}
             className="flex flex-col items-center md:items-start gap-4"
           >
-            <h4 className="text-lg font-semibold text-[#FFFEF9] tracking-wide">
+            <h4 className="text-xl font-bold text-[#FFFEF9] tracking-wide">
               Contact Us
             </h4>
-            <div className="text-sm text-[#FFFEF9]/90 space-y-2 font-medium">
-              <a
+            <div className="text-sm text-[#FFFEF9]/90 space-y-3 font-medium">
+              <motion.a
                 href="mailto:info@impact360.africa"
-                className="block hover:text-[#306CEC] transition-colors duration-150"
+                className="flex items-center gap-2 hover:text-[#FFFEF9] transition-colors duration-200"
+                whileHover={{ x: 5 }}
               >
-                info@impact360.africa
-              </a>
-              <a
+                <span>📧</span>
+                <span>info@impact360.africa</span>
+              </motion.a>
+              <motion.a
                 href="tel:+2348000000000"
-                className="block hover:text-[#306CEC] transition-colors duration-150"
+                className="flex items-center gap-2 hover:text-[#FFFEF9] transition-colors duration-200"
+                whileHover={{ x: 5 }}
               >
-                +234 800 000 0000
-              </a>
-              <span className="block">Nakuru, Kenya</span>
+                <span>📞</span>
+                <span>+234 800 000 0000</span>
+              </motion.a>
+              <div className="flex items-center gap-2">
+                <span>📍</span>
+                <span>Nakuru, Kenya</span>
+              </div>
             </div>
           </motion.div>
 
@@ -83,22 +93,38 @@ export default function Footer() {
             transition={{ duration: 0.8 }}
             className="flex flex-col items-center md:items-start gap-4"
           >
-            <h4 className="text-lg font-semibold text-[#FFFEF9] tracking-wide">
+            <h4 className="text-xl font-bold text-[#FFFEF9] tracking-wide">
               Quick Links
             </h4>
             <div className="flex flex-col text-sm text-[#FFFEF9]/80 space-y-2 font-medium">
-              <a href="/#" className="hover:text-[#306CEC] transition-colors duration-150">
-                About
-              </a>
-              <a href="/#" className="hover:text-[#306CEC] transition-colors duration-150">
-                Programs
-              </a>
-              <a href="/#" className="hover:text-[#306CEC] transition-colors duration-150">
-                Events
-              </a>
-              <a href="/#" className="hover:text-[#306CEC] transition-colors duration-150">
-                Contact
-              </a>
+              <motion.a 
+                href="/#" 
+                className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
+                whileHover={{ x: 5 }}
+              >
+                → About
+              </motion.a>
+              <motion.a 
+                href="/#" 
+                className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
+                whileHover={{ x: 5 }}
+              >
+                → Programs
+              </motion.a>
+              <motion.a 
+                href="/#" 
+                className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
+                whileHover={{ x: 5 }}
+              >
+                → Events
+              </motion.a>
+              <motion.a 
+                href="/#" 
+                className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
+                whileHover={{ x: 5 }}
+              >
+                → Contact
+              </motion.a>
             </div>
           </motion.div>
 
@@ -109,55 +135,63 @@ export default function Footer() {
             transition={{ duration: 0.9 }}
             className="flex flex-col items-center md:items-start gap-4"
           >
-            <h4 className="text-lg font-semibold text-[#FFFEF9] tracking-wide">
+            <h4 className="text-xl font-bold text-[#FFFEF9] tracking-wide">
               Follow Us
             </h4>
 
            <div className="flex gap-3">
-            <a
+            <motion.a
                 href="https://twitter.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
-                className="hover:scale-110 transition-transform"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
+                whileHover={{ scale: 1.15, y: -3 }}
+                whileTap={{ scale: 0.95 }}
             >
-                <FaTwitter className="w-8 h-8 text-[#FFFEF9]/80 hover:text-[#1DA1F2]" />
-            </a>
+                <FaTwitter className="w-5 h-5 text-[#FFFEF9]" />
+            </motion.a>
 
-            <a
+            <motion.a
                 href="https://facebook.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="hover:scale-110 transition-transform"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
+                whileHover={{ scale: 1.15, y: -3 }}
+                whileTap={{ scale: 0.95 }}
             >
-                <FaFacebook className="w-8 h-8 text-[#FFFEF9]/80 hover:text-[#1877F3]" />
-            </a>
+                <FaFacebook className="w-5 h-5 text-[#FFFEF9]" />
+            </motion.a>
 
-            <a
+            <motion.a
                 href="https://instagram.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="hover:scale-110 transition-transform"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
+                whileHover={{ scale: 1.15, y: -3 }}
+                whileTap={{ scale: 0.95 }}
             >
-                <FaInstagram className="w-8 h-8 text-[#FFFEF9]/80 hover:text-[#E4405F]" />
-            </a>
+                <FaInstagram className="w-5 h-5 text-[#FFFEF9]" />
+            </motion.a>
 
-            <a
+            <motion.a
                 href="https://linkedin.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="hover:scale-110 transition-transform"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
+                whileHover={{ scale: 1.15, y: -3 }}
+                whileTap={{ scale: 0.95 }}
             >
-                <FaLinkedin className="w-8 h-8 text-[#FFFEF9]/80 hover:text-[#0A66C2]" />
-            </a>
+                <FaLinkedin className="w-5 h-5 text-[#FFFEF9]" />
+            </motion.a>
             </div>
 
 
             <div className="mt-4 text-left">
-              <h4 className="text-lg font-semibold text-[#FFFEF9] mb-2 tracking-wide">
+              <h4 className="text-xl font-bold text-[#FFFEF9] mb-2 tracking-wide">
                 Stay Updated
               </h4>
               <p className="text-sm text-[#FFFEF9]/80 max-w-xs">
@@ -175,9 +209,13 @@ export default function Footer() {
                 className="w-full md:w-48 px-2.5 py-1.5 rounded bg-white/10 text-white text-sm placeholder:text-[#FFFEF9]/60 outline-none border border-[#FFFEF9]/10 focus:ring-1 focus:ring-[#306CEC] transition"
             />
 
-            <button className="w-full sm:w-auto px-3 py-1.5 bg-gradient-to-br from-[#306CEC] to-[#1D2B64] text-[#FFFEF9] text-sm rounded font-medium shadow hover:scale-105 transition">
+            <motion.button 
+              className="w-full sm:w-auto px-3 py-1.5 bg-gradient-to-br from-[#306CEC] to-[#1D2B64] text-[#FFFEF9] text-sm rounded font-medium shadow hover:scale-105 transition"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
                 Subscribe
-            </button>
+            </motion.button>
             </form>
 
           </motion.div>
