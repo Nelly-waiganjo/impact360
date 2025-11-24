@@ -1,0 +1,15 @@
+ {
+      title: "Beyond Now",
+      status: "Past Event",
+      description:
+        "A transformative event focused on the future of entrepreneurship in the age of artificial intelligence. Explore how AI is reshaping industries and creating new opportunities for African founders.",
+      highlights: [
+         "AI applications for African startups",
+        "Building AI-powered products on a budget",
+        "Ethical AI considerations and responsible innovation",
+        "Real-world case studies from AI startups",
+        "Hands-on workshops with AI tools and frameworks"
+      ],
+      speakers: ["Self-funded Entrepreneurs", "Financial Advisors", "Grant Experts", "Strategic Investors"],
+      image: "/events/beyond-capital.jpg"
+    }

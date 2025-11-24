@@ -1,8 +1,15 @@
 import React from "react";
 import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  const handleSubscribe = () => {
+    navigate("/subscription");
+  };
+
   return (
     <footer className="py-20 bg-gradient-to-br from-[#1D2B64] via-[#306CEC] to-[#000000] text-[#FFFEF9]/90 border-t border-[#FFFEF9]/10 relative overflow-hidden">
       
@@ -98,28 +105,42 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col text-sm text-[#FFFEF9]/80 space-y-2 font-medium">
               <motion.a 
-                href="/#" 
+                href="/" 
+                className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
+                whileHover={{ x: 5 }}
+              >
+                → Home
+              </motion.a>
+              <motion.a 
+                href="/about" 
                 className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
                 whileHover={{ x: 5 }}
               >
                 → About
               </motion.a>
               <motion.a 
-                href="/#" 
+                href="/programs" 
                 className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
                 whileHover={{ x: 5 }}
               >
                 → Programs
               </motion.a>
               <motion.a 
-                href="/#" 
+                href="/events" 
                 className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
                 whileHover={{ x: 5 }}
               >
                 → Events
               </motion.a>
               <motion.a 
-                href="/#" 
+                href="/subscription" 
+                className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
+                whileHover={{ x: 5 }}
+              >
+                → Subscription
+              </motion.a>
+              <motion.a 
+                href="/contact" 
                 className="hover:text-[#FFFEF9] transition-colors duration-200 inline-block"
                 whileHover={{ x: 5 }}
               >
@@ -139,8 +160,8 @@ export default function Footer() {
               Follow Us
             </h4>
 
-           <div className="flex gap-3">
-            <motion.a
+            <div className="flex gap-3">
+              <motion.a
                 href="https://twitter.com/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -148,11 +169,11 @@ export default function Footer() {
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
                 whileHover={{ scale: 1.15, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-            >
+              >
                 <FaTwitter className="w-5 h-5 text-[#FFFEF9]" />
-            </motion.a>
+              </motion.a>
 
-            <motion.a
+              <motion.a
                 href="https://facebook.com/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -160,11 +181,11 @@ export default function Footer() {
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
                 whileHover={{ scale: 1.15, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-            >
+              >
                 <FaFacebook className="w-5 h-5 text-[#FFFEF9]" />
-            </motion.a>
+              </motion.a>
 
-            <motion.a
+              <motion.a
                 href="https://instagram.com/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -172,11 +193,11 @@ export default function Footer() {
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
                 whileHover={{ scale: 1.15, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-            >
+              >
                 <FaInstagram className="w-5 h-5 text-[#FFFEF9]" />
-            </motion.a>
+              </motion.a>
 
-            <motion.a
+              <motion.a
                 href="https://linkedin.com/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -184,11 +205,10 @@ export default function Footer() {
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-[#FFFEF9]/20 hover:bg-white/20"
                 whileHover={{ scale: 1.15, y: -3 }}
                 whileTap={{ scale: 0.95 }}
-            >
+              >
                 <FaLinkedin className="w-5 h-5 text-[#FFFEF9]" />
-            </motion.a>
+              </motion.a>
             </div>
-
 
             <div className="mt-4 text-left">
               <h4 className="text-xl font-bold text-[#FFFEF9] mb-2 tracking-wide">
@@ -199,25 +219,14 @@ export default function Footer() {
               </p>
             </div>
 
-            <form
-            onSubmit={(e) => e.preventDefault()}
-            className="w-full flex flex-col sm:flex-row gap-2 items-start"
-            >
-            <input
-                type="email"
-                placeholder="Your email"
-                className="w-full md:w-48 px-2.5 py-1.5 rounded bg-white/10 text-white text-sm placeholder:text-[#FFFEF9]/60 outline-none border border-[#FFFEF9]/10 focus:ring-1 focus:ring-[#306CEC] transition"
-            />
-
-            <motion.button 
-              className="w-full sm:w-auto px-3 py-1.5 bg-gradient-to-br from-[#306CEC] to-[#1D2B64] text-[#FFFEF9] text-sm rounded font-medium shadow hover:scale-105 transition"
-              whileHover={{ scale: 1.05 }}
+            <motion.button
+              onClick={handleSubscribe} 
+              className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-br from-[#306CEC] to-[#1D2B64] text-[#FFFEF9] text-sm rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-                Subscribe
+              Subscribe
             </motion.button>
-            </form>
-
           </motion.div>
         </div>
 
@@ -230,7 +239,6 @@ export default function Footer() {
             Building Africa's Entrepreneurial Future 🚀
           </p>
         </div>
-
       </div>
     </footer>
   );

@@ -1,103 +1,240 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
-export default function Navbar() {
+const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showQR, setShowQR] = useState(false);
+  const location = useLocation();
+
+  // Detect scroll to change navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Check if current page should have solid background
+  const shouldHaveSolidBg = () => {
+    const pagesWithSolidBg = ['/about', '/programs', '/events', '/subscription'];
+    return pagesWithSolidBg.includes(location.pathname);
+  };
+
+  // Determine navbar background
+  const getNavbarBg = () => {
+    if (shouldHaveSolidBg()) {
+      return 'bg-black/80 backdrop-blur-lg shadow-lg';
+    }
+    return scrolled ? 'bg-black/80 backdrop-blur-lg shadow-lg' : 'bg-transparent';
+  };
+
+  // Scroll to section on homepage
+  const scrollToSection = (sectionId) => {
+    setMenuOpen(false);
+    
+    if (sectionId === 'Join Community') {
+      setShowQR(true);
+      return;
+    }
+    
+    const element = document.getElementById(sectionId.toLowerCase().replace(/\s+/g, '-'));
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
-    <nav className="w-full py-6 flex justify-between items-center px-8 fixed top-0 left-0 right-0 bg-[#FFFEF9]/95 backdrop-blur-md z-50 shadow-lg border-b border-[#306CEC]/10">
-      {/* Logo */}
-      <div className="flex items-center gap-3">
-        <div className="w-12 h-12 flex items-center justify-center">
-          <img
-            src="/logo2.png"
-            alt="Impact360 Logo"
-            className="w-full h-full object-contain"
-          />
-        </div>
-        <h1 className="text-2xl font-bold tracking-wide text-[#306CEC]">
-          Impact360
-        </h1>
-      </div>
-
-      {/* Desktop Menu */}
-      <ul className="hidden md:flex gap-8 text-[#306CEC] font-semibold">
-        <li className="cursor-pointer hover:text-[#306CEC]/70 transition-all duration-300 relative group">
-          <span>Home</span>
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#306CEC] group-hover:w-full transition-all duration-300"></span>
-        </li>
-        <li className="cursor-pointer hover:text-[#306CEC]/70 transition-all duration-300 relative group">
-          <span>About</span>
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#306CEC] group-hover:w-full transition-all duration-300"></span>
-        </li>
-        <li className="cursor-pointer hover:text-[#306CEC]/70 transition-all duration-300 relative group">
-          <span>Programs</span>
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#306CEC] group-hover:w-full transition-all duration-300"></span>
-        </li>
-        <li className="cursor-pointer hover:text-[#306CEC]/70 transition-all duration-300 relative group">
-          <span>Events</span>
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#306CEC] group-hover:w-full transition-all duration-300"></span>
-        </li>
-        <li className="cursor-pointer hover:text-[#306CEC]/70 transition-all duration-300 relative group">
-          <span>Contact</span>
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#306CEC] group-hover:w-full transition-all duration-300"></span>
-        </li>
-      </ul>
-
-      {/* Join Button */}
-      <motion.button
-        className="hidden md:block bg-[#306CEC] text-[#FFFEF9] px-8 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
-        whileHover={{ scale: 1.05, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <span className="relative z-10">Join Community</span>
+    <>
+      {/* WhatsApp QR Code Modal */}
+      {showQR && (
         <motion.div
-          className="absolute inset-0 bg-[#000000]"
-          initial={{ x: "-100%" }}
-          whileHover={{ x: 0 }}
-          transition={{ duration: 0.3 }}
-        />
-        <span className="absolute inset-0 flex items-center justify-center text-[#FFFEF9] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-          Join Community
-        </span>
-      </motion.button>
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => setShowQR(false)}
+        >
+          <motion.div
+            className="bg-white rounded-3xl p-8 max-w-md w-full relative shadow-2xl"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowQR(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+            >
+              ×
+            </button>
+            <div className="text-center space-y-6">
+              <h2 className="text-3xl font-bold text-gray-900">Join Our Community</h2>
+              <p className="text-gray-600">Scan the QR code to join our WhatsApp community</p>
+              <div className="bg-gray-100 p-8 rounded-2xl flex items-center justify-center">
+                <img 
+                  src="/whatsapp-qr.png" 
+                  alt="WhatsApp QR Code"
+                  className="w-64 h-64 object-contain"
+                />
+              </div>
+              <p className="text-sm text-gray-500">Or click below to join directly</p>
+              <a
+                href="https://chat.whatsapp.com/YOUR_GROUP_LINK"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-green-500 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 transition-all duration-300"
+              >
+                Open WhatsApp
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
 
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setMenuOpen(!menuOpen)}
-        className="md:hidden text-[#306CEC] text-3xl"
-      >
-        {menuOpen ? "✕" : "☰"}
-      </button>
+      {/* NAVBAR - Semi-transparent with backdrop blur */}
+      <nav className={`w-full flex justify-between items-center px-8 fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 ${getNavbarBg()}`}>
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 transition-all duration-500">
+          <div className="w-10 h-10 flex items-center justify-center">
+            <img 
+              src="/logo2.png" 
+              alt="Impact360 Logo"
+              className="w-full h-full object-contain drop-shadow-lg"
+            />
+          </div>
+          <h1 className="text-xl font-bold tracking-wide text-white drop-shadow-lg">Impact360</h1>
+        </Link>
+
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex gap-10 font-semibold text-sm text-white drop-shadow-md">
+          <li className="cursor-pointer hover:text-white/70 transition-all duration-300 relative group drop-shadow-md">
+            <Link to="/" onClick={() => setMenuOpen(false)}>
+              <span>Home</span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                location.pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></span>
+            </Link>
+          </li>
+
+          <li className="cursor-pointer hover:text-white/70 transition-all duration-300 relative group drop-shadow-md">
+            <Link to="/about" onClick={() => setMenuOpen(false)}>
+              <span>About</span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                location.pathname === '/about' ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></span>
+            </Link>
+          </li>
+
+          <li className="cursor-pointer hover:text-white/70 transition-all duration-300 relative group drop-shadow-md">
+            <Link to="/programs" onClick={() => setMenuOpen(false)}>
+              <span>Programs</span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                location.pathname === '/programs' ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></span>
+            </Link>
+          </li>
+
+          <li className="cursor-pointer hover:text-white/70 transition-all duration-300 relative group drop-shadow-md">
+            <Link to="/events" onClick={() => setMenuOpen(false)}>
+              <span>Events</span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                location.pathname === '/events' ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></span>
+            </Link>
+          </li>
+
+          <li className="cursor-pointer hover:text-white/70 transition-all duration-300 relative group drop-shadow-md">
+            <Link to="/subscription" onClick={() => setMenuOpen(false)}>
+              <span>Subscription</span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                location.pathname === '/subscription' ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></span>
+            </Link>
+          </li>
+
+          <li className="cursor-pointer hover:text-white/70 transition-all duration-300 relative group drop-shadow-md">
+            <Link to="/contact" onClick={() => setMenuOpen(false)}>
+              <span>contacts</span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
+                location.pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'
+              }`}></span>
+            </Link>
+          </li>
+
+          <li 
+            onClick={() => scrollToSection('Join Community')}
+            className="cursor-pointer hover:text-white/70 transition-all duration-300 relative group drop-shadow-md"
+          >
+            <span>Join Community</span>
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
+          </li>
+        </ul>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden text-white text-xl font-semibold drop-shadow-lg"
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+      </nav>
 
       {/* Mobile Dropdown */}
       {menuOpen && (
         <motion.div
-          className="md:hidden bg-[#FFFEF9]/98 backdrop-blur-lg fixed top-20 left-0 right-0 py-6 px-8 space-y-6 text-[#306CEC] text-lg font-semibold shadow-2xl border-b border-[#306CEC]/10 z-40"
+          className="md:hidden bg-black/80 backdrop-blur-lg fixed top-12 left-0 right-0 py-4 px-8 space-y-3 text-white text-base font-semibold shadow-2xl z-40"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <p className="hover:text-[#306CEC]/70 transition cursor-pointer">
-            Home
-          </p>
-          <p className="hover:text-[#306CEC]/70 transition cursor-pointer">
-            About
-          </p>
-          <p className="hover:text-[#306CEC]/70 transition cursor-pointer">
-            Programs
-          </p>
-          <p className="hover:text-[#306CEC]/70 transition cursor-pointer">
-            Events
-          </p>
-          <p className="hover:text-[#306CEC]/70 transition cursor-pointer">
-            Contact
-          </p>
-          <button className="w-full bg-[#306CEC] text-[#FFFEF9] px-6 py-2.5 rounded-full font-bold shadow-xl">
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            <p className={`hover:text-white/70 transition cursor-pointer ${
+              location.pathname === '/' ? 'text-yellow-400' : ''
+            }`}>Home</p>
+          </Link>
+          
+          <Link to="/about" onClick={() => setMenuOpen(false)}>
+            <p className={`hover:text-white/70 transition cursor-pointer ${
+              location.pathname === '/about' ? 'text-yellow-400' : ''
+            }`}>About</p>
+          </Link>
+
+          <Link to="/programs" onClick={() => setMenuOpen(false)}>
+            <p className={`hover:text-white/70 transition cursor-pointer ${
+              location.pathname === '/programs' ? 'text-yellow-400' : ''
+            }`}>Programs</p>
+          </Link>
+
+          <Link to="/events" onClick={() => setMenuOpen(false)}>
+            <p className={`hover:text-white/70 transition cursor-pointer ${
+              location.pathname === '/events' ? 'text-yellow-400' : ''
+            }`}>Events</p>
+          </Link>
+
+          <Link to="/subscription" onClick={() => setMenuOpen(false)}>
+            <p className={`hover:text-white/70 transition cursor-pointer ${
+              location.pathname === '/subscription' ? 'text-yellow-400' : ''
+            }`}>Subscription</p>
+          </Link>
+
+          <p 
+            onClick={() => scrollToSection('Join Community')}
+            className="hover:text-white/70 transition cursor-pointer"
+          >
             Join Community
-          </button>
+          </p>
         </motion.div>
       )}
-    </nav>
+    </>
   );
-}
+};
+
+export default Navbar;
+
+
+
+
+
+
